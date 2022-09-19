@@ -26,6 +26,16 @@ public class MainMenu : MonoBehaviour
         settingsMenu.SetActive(true);
         creditsMenu.SetActive(false);
     }
+    
+    List<int> widths = new List<int>() { 1920, 1280, 960, 568 };
+    List<int> heights = new List<int>() { 1080, 800, 540, 330 };
+    public void SetResolutionSize(int index)
+    {
+        bool fullscreen = Screen.fullScreen;
+        int width = widths[index];
+        int height = heights[index];
+        Screen.SetResolution(width, height,fullscreen);
+    }
 
     public void ToCredits()
     {
