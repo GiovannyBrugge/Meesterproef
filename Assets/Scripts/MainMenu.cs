@@ -8,11 +8,13 @@ public class MainMenu : MonoBehaviour
     [SerializeField] GameObject settingsMenu;
     [SerializeField] GameObject creditsMenu;
    
+    //Start the game
     public void PlayGame()
     {
         SceneManager.LoadScene("Main_Game");
     }
 
+    //Opens Main Menu tab
     public void ToMainMenu()
     {
         mainMenu.SetActive(true);
@@ -20,23 +22,33 @@ public class MainMenu : MonoBehaviour
         creditsMenu.SetActive(false);
     }
 
+    //Opens Settings tab
     public void ToSettings()
     {
         mainMenu.SetActive(false);
         settingsMenu.SetActive(true);
         creditsMenu.SetActive(false);
     }
+
+    //Add resolutions
+    List<Vector2> resolutions = new List<Vector2>() {
+    new Vector2(3840, 2160),
+    new Vector2(3440, 1440),
+    new Vector2(2560, 1440),
+    new Vector2(1920, 1080),
+    new Vector2(1600, 768),
+    new Vector2(1366, 768),
+    new Vector2(1280, 1024)
+    };
     
-    List<int> widths = new List<int>() { 1920, 1280, 960, 568 };
-    List<int> heights = new List<int>() { 1080, 800, 540, 330 };
+    //Set the resolution
     public void SetResolutionSize(int index)
     {
-        bool fullscreen = Screen.fullScreen;
-        int width = widths[index];
-        int height = heights[index];
-        Screen.SetResolution(width, height,fullscreen);
+        Vector2 resolution = resolutions[index];
+        Screen.SetResolution((int)resolution.x, (int)resolution.y,Screen.fullScreen);
     }
 
+    //Opens Credits tab
     public void ToCredits()
     {
         mainMenu.SetActive(false);
@@ -44,7 +56,7 @@ public class MainMenu : MonoBehaviour
         creditsMenu.SetActive(true);
     }
 
-
+    //Exits application
     public void Quit()
     {
         Application.Quit();
