@@ -1,13 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] GameObject mainMenu;
-    [SerializeField] GameObject settingsMenu;
-    [SerializeField] GameObject creditsMenu;
-   
+    [SerializeField]
+    GameObject mainMenu;
+    [SerializeField]
+    GameObject settingsMenu;
+    [SerializeField]
+    GameObject creditsMenu;
+
     //Start the game
     public void PlayGame()
     {
@@ -31,7 +34,8 @@ public class MainMenu : MonoBehaviour
     }
 
     //Add resolutions
-    List<Vector2> resolutions = new List<Vector2>() {
+    [HideInInspector]
+    public List<Vector2> resolutions = new List<Vector2>() {
     new Vector2(3840, 2160),
     new Vector2(3440, 1440),
     new Vector2(2560, 1440),
@@ -40,12 +44,12 @@ public class MainMenu : MonoBehaviour
     new Vector2(1366, 768),
     new Vector2(1280, 1024)
     };
-    
+
     //Set the resolution
     public void SetResolutionSize(int index)
     {
         Vector2 resolution = resolutions[index];
-        Screen.SetResolution((int)resolution.x, (int)resolution.y,Screen.fullScreen);
+        Screen.SetResolution((int)resolution.x, (int)resolution.y, Screen.fullScreen);
     }
 
     //Opens Credits tab
