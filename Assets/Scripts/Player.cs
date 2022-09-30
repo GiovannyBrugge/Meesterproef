@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float playerMovementSpeed = 225f;
-    private float jumpPower = 500f;
+    [HideInInspector]
+    public float playerMovementSpeed = 225f;
+    [HideInInspector]
+    public float jumpPower = 500f;
     private float horizontalInput;
     private Rigidbody2D playerRB;
     private bool rightFace = true;
@@ -23,7 +25,7 @@ public class Player : MonoBehaviour
         //Makes the play jump with the input: spacebar and W
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
         {
-            playerRB.velocity = Vector2.up * jumpPower * Time.deltaTime;
+            playerRB.velocity = (Vector2.up * jumpPower) * Time.deltaTime;
         }
 
         if (rightFace == false && horizontalInput > 0)
@@ -36,8 +38,7 @@ public class Player : MonoBehaviour
         }
      
     }
- 
-    //The player will face the correct direction
+     //The player will face the correct direction
     private void Mirror() 
     {
         rightFace = !rightFace;
@@ -49,12 +50,22 @@ public class Player : MonoBehaviour
     //Detects other obstacles
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.name == "Trap")
+        switch (other.gameObject.name)
         {
-            Destroy(gameObject);
-            Debug.Log("I touch a spike");
+            case "Ravine":
+                Die();
+                Debug.Log("I touched a ravine");
+                break;
+
+            case "Spike":
+                Die();
+                Debug.Log("I touched a spike");
+                break;
         }
     }
-
-
+    //Kills the player (Will respawn player soon)
+    private void Die()
+    {
+        Destroy(gameObject);
+    }
 }
