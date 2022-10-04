@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Camera segmentCamera;
+    //index 0 = Segement 1, index 1 = segment 2 etc. etc.
+    private Vector3[] segmentCameraPositions =
+     {
+     new Vector3(0.0f,0.0f,-10f),
+     new Vector3(-18f,0.0f,-10f)
+    };
     [HideInInspector]
     public float playerMovementSpeed = 225f;
     [HideInInspector]
@@ -25,7 +32,7 @@ public class Player : MonoBehaviour
         //Makes the play jump with the input: spacebar and W
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
         {
-            playerRB.velocity = (Vector2.up * jumpPower) * Time.deltaTime;
+            Jump();
         }
 
         if (rightFace == false && horizontalInput > 0)
@@ -36,7 +43,6 @@ public class Player : MonoBehaviour
         {
             Mirror();
         }
-     
     }
      //The player will face the correct direction
     private void Mirror() 
@@ -47,6 +53,10 @@ public class Player : MonoBehaviour
         transform.localScale = Size;
     }
 
+    private void Jump()
+    {
+        playerRB.velocity = (Vector2.up * jumpPower) * Time.deltaTime;
+    }
     //Detects other obstacles
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -60,6 +70,16 @@ public class Player : MonoBehaviour
             case "Spike":
                 Die();
                 Debug.Log("I touched a spike");
+                break;
+        }
+    }
+    //Checks for trigger to change the camera position
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        switch (other.gameObject.name)
+        {
+            case "1to2":
+                segmentCamera.transform.position = segmentCameraPositions[1];
                 break;
         }
     }
