@@ -6,15 +6,15 @@ public class Player : MonoBehaviour
 {
     public Camera segmentCamera;
     //index 0 = Segement 1, index 1 = segment 2 etc. etc.
-    private Vector3[] segmentCameraPositions =
+    readonly Vector3[] segmentCameraPositions =
      {
      new Vector3(0.0f,0.0f,-10f),
      new Vector3(-18f,0.0f,-10f)
     };
     [HideInInspector]
     public float playerMovementSpeed = 225f;
-    [HideInInspector]
-    public float jumpPower = 500f;
+    //[HideInInspector]
+    readonly float jumpPower = 250f;
     private float horizontalInput;
     private Rigidbody2D playerRB;
     private bool rightFace = true;
@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
         playerRB = GetComponent<Rigidbody2D>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         //Makes a float with the input "Horizontal" (Horizontal contains: A and LeftArrow for negative x movement; D and RightArrow for positive x movement)
         horizontalInput = Input.GetAxisRaw("Horizontal");
