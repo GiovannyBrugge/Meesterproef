@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField]
-    GameObject mainMenu;
+    private GameObject mainMenu;
     [SerializeField]
-    GameObject settingsMenu;
+    private GameObject settingsMenu;
     [SerializeField]
-    GameObject creditsMenu;
+    private GameObject creditsMenu;
 
     //Start the game
     public void PlayGame()
@@ -36,13 +36,13 @@ public class MainMenu : MonoBehaviour
     //Add resolutions
     [HideInInspector]
     public List<Vector2> resolutions = new List<Vector2>() {
-    new Vector2(3840, 2160),
-    new Vector2(3440, 1440),
-    new Vector2(2560, 1440),
-    new Vector2(1920, 1080),
-    new Vector2(1600, 768),
-    new Vector2(1366, 768),
-    new Vector2(1280, 1024)
+        new Vector2(3840, 2160),
+        new Vector2(3440, 1440),
+        new Vector2(2560, 1440),
+        new Vector2(1920, 1080),
+        new Vector2(1600, 768),
+        new Vector2(1366, 768),
+        new Vector2(1280, 1024)
     };
 
     //Set the resolution
