@@ -86,6 +86,7 @@ public class Player : MonoBehaviour
         {
             transform.eulerAngles = Vector3.zero;
         }
+        
     }
      //The player will face the correct direction
     private void Mirror() 
@@ -107,8 +108,12 @@ public class Player : MonoBehaviour
         {
             playerRB.velocity = new Vector2(jumpPower, playerRB.velocity.y);
         }
+        else if (Physics2D.gravity == new Vector2(0f, 9.81f))
+        {
+            playerRB.velocity = new Vector2(playerRB.velocity.x, -jumpPower);
+        }
         else { 
-            playerRB.velocity = new Vector2(playerRB.velocity.x, jumpPower); 
+            playerRB.velocity = new Vector2(playerRB.velocity.x, jumpPower);
         }
     }
     //Detects other obstacles
