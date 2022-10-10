@@ -1332,6 +1332,14 @@ MonoBehaviour:
   mainMenu: {fileID: 8013134948565240704}
   settingsMenu: {fileID: 157579408}
   creditsMenu: {fileID: 1597424493}
+  resolutions:
+  - {x: 3840, y: 2160}
+  - {x: 3440, y: 1440}
+  - {x: 2560, y: 1440}
+  - {x: 1920, y: 1080}
+  - {x: 1600, y: 768}
+  - {x: 1366, y: 768}
+  - {x: 1280, y: 1024}
 --- !u!1 &1597424493
 GameObject:
   m_ObjectHideFlags: 0
@@ -6041,7 +6049,7 @@ GameObject:
   - component: {fileID: 8013134948565240718}
   - component: {fileID: 8013134948565240719}
   m_Layer: 5
-  m_Name: Main Menu
+  m_Name: Menu Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
