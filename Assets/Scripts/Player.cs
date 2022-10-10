@@ -142,7 +142,13 @@ public class Player : MonoBehaviour
     //Kills the player (Will respawn player soon)
     public void Die()
     {
+        ResetPlayer();
         Debug.Log("The player has died");
         SceneManager.LoadScene("Main_Menu");
+    }
+    //Sets gravity and player rotation to default
+    private void ResetPlayer()
+    {
+        Physics2D.gravity = new Vector2(0f, -9.81f);
     }
 }
