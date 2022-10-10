@@ -4,9 +4,12 @@ public class Level : MonoBehaviour
 {
     private Player player;
     private Camera segmentCamera;
+    
     private readonly Vector3[] segmentCameraPositions =
     {
+     //Segment 1
      new Vector3(0.0f,0.0f,-10f),
+     //Segment 2
      new Vector3(-18f,0.0f,-10f)
     };
 
@@ -28,6 +31,10 @@ public class Level : MonoBehaviour
                 player.Die();
                 Debug.Log("I touched a spike");
                 break;
+            case "Spike2":
+                player.Die();
+                Debug.Log("I touched a spike");
+                break;
         }
     }
     //Checks for trigger to change the camera position
@@ -37,6 +44,9 @@ public class Level : MonoBehaviour
         {
             case "1to2":
                 segmentCamera.transform.position = segmentCameraPositions[1];
+                break;
+            case "2to1":
+                segmentCamera.transform.position = segmentCameraPositions[0];
                 break;
         }
         

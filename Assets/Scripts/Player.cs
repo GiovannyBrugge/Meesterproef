@@ -1,3 +1,4 @@
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -6,11 +7,14 @@ public class Player : MonoBehaviour
     public Level level;
     private Rigidbody2D playerRB;
     private Transform groundCheck;
+
     public LayerMask groundLayer;
+
     const float checkCollisionRadius = 0.2f;
     private readonly float playerMovementSpeed = 2.5f;
     private readonly float jumpPower = 4.5f;
     private float horizontalInput;
+
     private bool rightFace = true;
     private bool isGrounded = false;
     
@@ -22,10 +26,12 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
+        //Check if the player is touching the ground
         GroundCheck();
+
         //Makes a float with the input "Horizontal" (Horizontal contains: A and LeftArrow for negative x movement; D and RightArrow for positive x movement)
         horizontalInput = Input.GetAxisRaw("Horizontal");
-
+        
         if (Physics2D.gravity == new Vector2(9.81f, 0f)) 
         {
             playerRB.velocity = new Vector2(playerRB.velocity.x, horizontalInput * playerMovementSpeed);
@@ -96,7 +102,7 @@ public class Player : MonoBehaviour
         Size.x *= -1;
         transform.localScale = Size;
     }
-   
+   //Let's the play jump under gravity direction circumstances
     private void Jump()
     {
 
@@ -136,6 +142,7 @@ public class Player : MonoBehaviour
     //Kills the player (Will respawn player soon)
     public void Die()
     {
-        Destroy(gameObject);
+        Debug.Log("The player has died");
+        SceneManager.LoadScene("Main_Menu");
     }
 }
