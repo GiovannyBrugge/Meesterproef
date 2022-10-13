@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    private Player player;
+    //private Player player;
     private Camera segmentCamera;
     
     private readonly Vector3[] segmentCameraPositions =
@@ -15,11 +15,11 @@ public class Level : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.Find("Player").GetComponent<Player>();
+      //  player = GameObject.Find("Player").GetComponent<Player>();
         segmentCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
     }
     //Detects other obstacles
-    public void PlayerCollision(Collision2D other)
+    public void PlayerCollision(Player player,Collision2D other)
     {
         switch (other.gameObject.name)
         {
@@ -38,7 +38,7 @@ public class Level : MonoBehaviour
         }
     }
     //Checks for trigger to change the camera position
-    public void PlayerCollider(Collider2D other)
+    public void PlayerCollider(Player player,Collider2D other)
     {
         switch (other.gameObject.name)
         {

@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
     //Detects other obstacles
     void OnCollisionEnter2D(Collision2D other)
     {
-        level.PlayerCollision(other);
+        level.PlayerCollision(this,other);
 
         switch (other.gameObject.tag)
         {
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour
    //Checks for trigger to change the camera position
     void OnTriggerEnter2D(Collider2D other)
     {
-        level.PlayerCollider(other);
+        level.PlayerCollider(this,other);
     }
 
     //Kills the player (Will respawn player soon)
