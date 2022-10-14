@@ -10,7 +10,9 @@ public class Level : MonoBehaviour
      //Segment 1
      new Vector3(0.0f,0.0f,-10f),
      //Segment 2
-     new Vector3(-18f,0.0f,-10f)
+     new Vector3(-18f,0.0f,-10f),
+    //Segment 3
+     new Vector3(-18f,-10.0f,-10f)
     };
 
     private void Start()
@@ -42,11 +44,14 @@ public class Level : MonoBehaviour
     {
         switch (other.gameObject.name)
         {
-            case "1to2":
+            case "ToSegment1":
+                segmentCamera.transform.position = segmentCameraPositions[0];
+                break;
+            case "ToSegment2":
                 segmentCamera.transform.position = segmentCameraPositions[1];
                 break;
-            case "2to1":
-                segmentCamera.transform.position = segmentCameraPositions[0];
+            case "ToSegment3":
+                segmentCamera.transform.position = segmentCameraPositions[2];
                 break;
         }
         
