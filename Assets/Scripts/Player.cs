@@ -144,7 +144,7 @@ public class Player : MonoBehaviour
     {
         ResetPlayer();
         Debug.Log("The player has died");
-        SceneManager.LoadScene("Main_Menu");
+        SceneManager.LoadScene(0);
     }
     //Sets gravity and player rotation to default
     private void ResetPlayer()
