@@ -32,6 +32,13 @@ public class MainMenu : MonoBehaviour
         settingsMenu.SetActive(true);
         creditsMenu.SetActive(false);
     }
+    //Opens Credits tab
+    public void ToCredits()
+    {
+        mainMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        creditsMenu.SetActive(true);
+    }
 
     //Add resolutions
     [HideInInspector]
@@ -50,14 +57,6 @@ public class MainMenu : MonoBehaviour
     {
         Vector2 resolution = resolutions[index];
         Screen.SetResolution((int)resolution.x, (int)resolution.y, Screen.fullScreen);
-    }
-
-    //Opens Credits tab
-    public void ToCredits()
-    {
-        mainMenu.SetActive(false);
-        settingsMenu.SetActive(false);
-        creditsMenu.SetActive(true);
     }
 
     //Exits application
