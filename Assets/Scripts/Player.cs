@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
     {
         if(direction == "Up")
         {
-            transform.eulerAngles = new Vector3(0f, 0f, 180f);
+            transform.eulerAngles = new Vector3(180f, 0f, 0f);
         }
         else if(direction == "Down")
         {
