@@ -191,17 +191,22 @@ public class Player : MonoBehaviour
         switch (level.currentActiveCheckpoint)
         {
             case 0:
-                currentPlayerPosition.transform.position = playerSpawnPosition[0];
-                break;
-            case 1:
                 Rotate("Down");
                 Physics2D.gravity = new Vector2(0f, -9.81f);
-                currentPlayerPosition.transform.position = playerSpawnPosition[1];
+                currentPlayerPosition.transform.position = playerSpawnPosition[0];
+                level.segmentCamera.transform.position = level.segmentCameraPositions[0];
                 break;
-            case 2:
+            case 1:
                 Rotate("Up");
                 Physics2D.gravity = new Vector2(0f, 9.81f);
+                currentPlayerPosition.transform.position = playerSpawnPosition[1];
+                level.segmentCamera.transform.position = level.segmentCameraPositions[0];
+                break;
+            case 2:
+                Rotate("Left");
+                Physics2D.gravity = new Vector2(-9.81f, 0f);
                 currentPlayerPosition.transform.position = playerSpawnPosition[2];
+                level.segmentCamera.transform.position = level.segmentCameraPositions[1];
                 break;
         }
     }

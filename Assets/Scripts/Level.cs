@@ -3,10 +3,10 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
     //private Player player;
-    private Camera segmentCamera;
+    public Camera segmentCamera;
     public Sprite checkpointActive;
     public Sprite checkpointUnactive;
-    private readonly Vector3[] segmentCameraPositions =
+    public Vector3[] segmentCameraPositions =
     {
      //Segment 1
      new Vector3(0.0f,0.0f,-10f),
@@ -94,16 +94,15 @@ public class Level : MonoBehaviour
         if(checkpoint == "setCheckpoint1")
         {
             currentActiveCheckpoint = 1;
-            segmentCamera.transform.position = segmentCameraPositions[0];
             GameObject.Find("Checkpoint1").GetComponent<SpriteRenderer>().sprite = checkpointActive;
             GameObject.Find("Checkpoint2").GetComponent<SpriteRenderer>().sprite = checkpointUnactive;
         }
-        if (checkpoint == "setCheckpoint2")
+        else if (checkpoint == "setCheckpoint2")
         {
             currentActiveCheckpoint = 2;
-            segmentCamera.transform.position = segmentCameraPositions[0];
             GameObject.Find("Checkpoint2").GetComponent<SpriteRenderer>().sprite = checkpointActive;
             GameObject.Find("Checkpoint1").GetComponent<SpriteRenderer>().sprite = checkpointUnactive;
         }
     }
+  
 }
