@@ -24,9 +24,9 @@ public class Player : MonoBehaviour
      //Spawn
      new Vector3(-7.5f,-3.5f,0f),
      //Checkpoint 1
-     new Vector3(-18f,0.0f,-10f),
+     new Vector3(0f,0f,0f),
     //Checkpoint 2
-     new Vector3(-18f,-10.0f,-10f)
+    new Vector3(0f,0f,0f),
     };
 
     private void Start()
@@ -35,6 +35,10 @@ public class Player : MonoBehaviour
         level = GameObject.Find("Level").GetComponent<Level>();
         groundCheck = GameObject.Find("GroundCheck").GetComponent<Transform>();
         currentPlayerPosition = GameObject.Find("Player").GetComponent<Transform>();
+        //Set checkpoint1 position
+        playerSpawnPosition[1] = new Vector3(GameObject.Find("Checkpoint1").GetComponent<Transform>().position.x, GameObject.Find("Checkpoint1").GetComponent<Transform>().position.y, GameObject.Find("Checkpoint1").GetComponent<Transform>().position.z);
+        //Set checkpoint2 position
+        playerSpawnPosition[2] = new Vector3(GameObject.Find("Checkpoint2").GetComponent<Transform>().position.x, GameObject.Find("Checkpoint2").GetComponent<Transform>().position.y, GameObject.Find("Checkpoint2").GetComponent<Transform>().position.z);
         currentPlayerPosition.transform.position = playerSpawnPosition[0];
     }
     private void Update()
@@ -155,13 +159,27 @@ public class Player : MonoBehaviour
     //Kills the player (Will respawn player soon)
     public void Die()
     {
-        ResetPlayer();
         Debug.Log("The player has died");
-        SceneManager.LoadScene(0);
+        LoadLastCheckpoint();
+       
     }
-    //Sets gravity and player rotation to default
-    private void ResetPlayer()
+     public void LoadLastCheckpoint()
     {
-        Physics2D.gravity = new Vector2(0f, -9.81f);
+        switch (level.currentActiveCheckpoint)
+        {
+            case 0:
+                currentPlayerPosition.transform.position = playerSpawnPosition[0];
+                break;
+            case 1:
+                Rotate("Down");
+                Physics2D.gravity = new Vector2(0f, -9.81f);
+                currentPlayerPosition.transform.position = playerSpawnPosition[1];
+                break;
+            case 2:
+                Rotate("Up");
+                Physics2D.gravity = new Vector2(0f, 9.81f);
+                currentPlayerPosition.transform.position = playerSpawnPosition[2];
+                break;
+        }
     }
 }

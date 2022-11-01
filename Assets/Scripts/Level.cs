@@ -16,6 +16,7 @@ public class Level : MonoBehaviour
      new Vector3(-18f,-10.0f,-10f)
     };
 
+    public int currentActiveCheckpoint; //0 = spawn, 1 = checkpoint1, 2 = checkpoint2
     private void Start()
     {
       //  player = GameObject.Find("Player").GetComponent<Player>();
@@ -48,6 +49,10 @@ public class Level : MonoBehaviour
             case "Checkpoint1":
                 Debug.Log("Touching checkpoint");
                 SetCheckpoint("setCheckpoint1");
+                break;
+            case "Checkpoint2":
+                Debug.Log("Touching checkpoint");
+                SetCheckpoint("setCheckpoint2");
                 break;
             case "ToSegment1":
                 segmentCamera.transform.position = segmentCameraPositions[0];
@@ -88,7 +93,17 @@ public class Level : MonoBehaviour
     {
         if(checkpoint == "setCheckpoint1")
         {
+            currentActiveCheckpoint = 1;
+            segmentCamera.transform.position = segmentCameraPositions[0];
             GameObject.Find("Checkpoint1").GetComponent<SpriteRenderer>().sprite = checkpointActive;
+            GameObject.Find("Checkpoint2").GetComponent<SpriteRenderer>().sprite = checkpointUnactive;
+        }
+        if (checkpoint == "setCheckpoint2")
+        {
+            currentActiveCheckpoint = 2;
+            segmentCamera.transform.position = segmentCameraPositions[0];
+            GameObject.Find("Checkpoint2").GetComponent<SpriteRenderer>().sprite = checkpointActive;
+            GameObject.Find("Checkpoint1").GetComponent<SpriteRenderer>().sprite = checkpointUnactive;
         }
     }
 }
