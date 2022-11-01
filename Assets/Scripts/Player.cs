@@ -1,27 +1,32 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
     [HideInInspector]
+    //Level class
     public Level level;
     private Rigidbody2D playerRB;
+    private SpriteRenderer playerSprite;
+    //Player ground detecting
     private Transform groundCheck;
-
     public LayerMask groundLayer;
-
     const float checkCollisionRadius = 0.2f;
+    //Player movement
     private readonly float playerMovementSpeed = 2.5f;
     private readonly float jumpPower = 4.5f;
     private float horizontalInput;
-
+    //Player check facing direction
     private bool rightFace = true;
+    //Player check touching ground
     private bool isGrounded = false;
-
+    //Player's current position
     private Transform currentPlayerPosition;
+    //Spawn positions
     private readonly Vector3[] playerSpawnPosition =
     {
-     //Spawn
+     //Start
      new Vector3(-7.5f,-3.5f,0f),
      //Checkpoint 1
      new Vector3(0f,0f,0f),
@@ -33,6 +38,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        playerSprite = GetComponent<SpriteRenderer>();
         playerRB = GetComponent<Rigidbody2D>();
         level = GameObject.Find("Level").GetComponent<Level>();
         groundCheck = GameObject.Find("GroundCheck").GetComponent<Transform>();
@@ -169,9 +175,14 @@ public class Player : MonoBehaviour
     }
 
     //Kills the player (Will respawn player soon)
-    public void Die()
+    public IEnumerator Die()
     {
         Debug.Log("The player has died");
+        playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
+        playerSprite.color = Color.red;
+        yield return new WaitForSeconds(0.5f);
+        playerSprite.color = Color.white;
+        playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
         LoadLastCheckpoint();
        
     }

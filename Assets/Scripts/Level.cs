@@ -28,15 +28,15 @@ public class Level : MonoBehaviour
         switch (other.gameObject.name)
         {
             case "Ravine":
-                player.Die();
+                StartCoroutine(player.Die());
                 Debug.Log("I touched a ravine");
                 break;
             case "Spike":
-                player.Die();
+                StartCoroutine(player.Die());
                 Debug.Log("I touched a spike");
                 break;
             case "Spike2":
-                player.Die();
+                StartCoroutine(player.Die());
                 Debug.Log("I touched a spike");
                 break;
         }
