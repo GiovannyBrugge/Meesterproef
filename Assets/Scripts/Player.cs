@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     new Vector3(0f,0f,0f),
     };
 
+    public Animator animator;
+
     private void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
@@ -48,7 +50,8 @@ public class Player : MonoBehaviour
 
         //Makes a float with the input "Horizontal" (Horizontal contains: A and LeftArrow for negative x movement; D and RightArrow for positive x movement)
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        
+
+        animator.SetFloat("PlayerSpeed", Mathf.Abs(horizontalInput));
         if (Physics2D.gravity == new Vector2(9.81f, 0f)) 
         {
             playerRB.velocity = new Vector2(playerRB.velocity.x, horizontalInput * playerMovementSpeed);
@@ -66,6 +69,15 @@ public class Player : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded == true )
         {
             Jump();
+            animator.SetTrigger("IsLaunching");
+        }
+        if(isGrounded == true)
+        {
+            animator.SetBool("IsJumping", false);
+        }
+        else
+        {
+            animator.SetBool("IsJumping", true);
         }
         if (rightFace == false && horizontalInput > 0)
         {
