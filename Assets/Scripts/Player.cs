@@ -17,12 +17,25 @@ public class Player : MonoBehaviour
 
     private bool rightFace = true;
     private bool isGrounded = false;
-    
+
+    private Transform currentPlayerPosition;
+    private readonly Vector3[] playerSpawnPosition =
+    {
+     //Spawn
+     new Vector3(-7.5f,-3.5f,0f),
+     //Checkpoint 1
+     new Vector3(-18f,0.0f,-10f),
+    //Checkpoint 2
+     new Vector3(-18f,-10.0f,-10f)
+    };
+
     private void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
         level = GameObject.Find("Level").GetComponent<Level>();
         groundCheck = GameObject.Find("GroundCheck").GetComponent<Transform>();
+        currentPlayerPosition = GameObject.Find("Player").GetComponent<Transform>();
+        currentPlayerPosition.transform.position = playerSpawnPosition[0];
     }
     private void Update()
     {

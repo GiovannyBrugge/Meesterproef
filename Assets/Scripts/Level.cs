@@ -4,7 +4,8 @@ public class Level : MonoBehaviour
 {
     //private Player player;
     private Camera segmentCamera;
-    
+    public Sprite checkpointActive;
+    public Sprite checkpointUnactive;
     private readonly Vector3[] segmentCameraPositions =
     {
      //Segment 1
@@ -44,6 +45,10 @@ public class Level : MonoBehaviour
     {
         switch (other.gameObject.name)
         {
+            case "Checkpoint1":
+                Debug.Log("Touching checkpoint");
+                SetCheckpoint("setCheckpoint1");
+                break;
             case "ToSegment1":
                 segmentCamera.transform.position = segmentCameraPositions[0];
                 break;
@@ -79,5 +84,11 @@ public class Level : MonoBehaviour
                 break;
         }
     }
-
+    public void SetCheckpoint(string checkpoint)
+    {
+        if(checkpoint == "setCheckpoint1")
+        {
+            GameObject.Find("Checkpoint1").GetComponent<SpriteRenderer>().sprite = checkpointActive;
+        }
+    }
 }
