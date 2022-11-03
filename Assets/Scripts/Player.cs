@@ -21,17 +21,19 @@ public class Player : MonoBehaviour
     private bool rightFace = true;
     //Player check touching ground
     private bool isGrounded = false;
+    //Rotation directions
+    public enum RotateDirection {Up, Down, Right, Left }
     //Player's current position
     private Transform currentPlayerPosition;
     //Spawn positions
     private readonly Vector3[] playerSpawnPosition =
     {
-     //Start
-     new Vector3(-7.5f,-3.5f,0f),
-     //Checkpoint 1
-     new Vector3(0f,0f,0f),
-    //Checkpoint 2
-    new Vector3(0f,0f,0f),
+        //Start
+        new Vector3(-7.5f,-3.5f,0f),
+        //Checkpoint 1
+         new Vector3(0f,0f,0f),
+        //Checkpoint 2
+        new Vector3(0f,0f,0f)
     };
 
     public Animator animator;
@@ -44,9 +46,12 @@ public class Player : MonoBehaviour
         groundCheck = GameObject.Find("GroundCheck").GetComponent<Transform>();
         currentPlayerPosition = GameObject.Find("Player").GetComponent<Transform>();
         //Set checkpoint1 position
-        playerSpawnPosition[1] = new Vector3(GameObject.Find("Checkpoint1").GetComponent<Transform>().position.x, GameObject.Find("Checkpoint1").GetComponent<Transform>().position.y, GameObject.Find("Checkpoint1").GetComponent<Transform>().position.z);
+        Vector3 cp1 = GameObject.Find("Checkpoint1").GetComponent<Transform>().position;
+        playerSpawnPosition[1] = new Vector3(cp1.x, cp1.y, cp1.z);
         //Set checkpoint2 position
-        playerSpawnPosition[2] = new Vector3(GameObject.Find("Checkpoint2").GetComponent<Transform>().position.x, GameObject.Find("Checkpoint2").GetComponent<Transform>().position.y, GameObject.Find("Checkpoint2").GetComponent<Transform>().position.z);
+        Vector3 cp2 = GameObject.Find("Checkpoint2").GetComponent<Transform>().position;
+        playerSpawnPosition[2] = new Vector3(cp2.x, cp2.y, cp2.z);
+        //Start position
         currentPlayerPosition.transform.position = playerSpawnPosition[0];
     }
     private void Update()
@@ -58,7 +63,7 @@ public class Player : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
         animator.SetFloat("PlayerSpeed", Mathf.Abs(horizontalInput));
-        if (Physics2D.gravity == new Vector2(9.81f, 0f)) 
+        if (Physics2D.gravity == new Vector2(9.81f, 0f))
         {
             playerRB.velocity = new Vector2(playerRB.velocity.x, horizontalInput * playerMovementSpeed);
         }
@@ -72,12 +77,12 @@ public class Player : MonoBehaviour
         }
 
         //Makes the play jump with the input: spacebar and W
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded == true )
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded == true)
         {
             Jump();
             animator.SetTrigger("IsLaunching");
         }
-        if(isGrounded == true)
+        if (isGrounded == true)
         {
             animator.SetBool("IsJumping", false);
         }
@@ -89,7 +94,7 @@ public class Player : MonoBehaviour
         {
             Mirror();
         }
-        else if(rightFace == true && horizontalInput < 0)
+        else if (rightFace == true && horizontalInput < 0)
         {
             Mirror();
         }
@@ -105,21 +110,21 @@ public class Player : MonoBehaviour
         }
     }
     //Rotates the play in a specific direction
-    public void Rotate(string direction)
+    public RotateDirection Rotate(RotateDirection direction)
     {
-        if(direction == "Up")
+        if (direction == RotateDirection.Up)
         {
             transform.eulerAngles = new Vector3(180f, 0f, 0f);
         }
-        else if(direction == "Down")
+        else if (direction == RotateDirection.Down)
         {
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
         }
-        else if (direction == "Right")
+        else if (direction == RotateDirection.Right)
         {
             transform.eulerAngles = new Vector3(0, 0f, 90f);
         }
-        else if (direction == "Left")
+        else if (direction == RotateDirection.Left)
         {
             transform.eulerAngles = new Vector3(0f, 0f, -90f);
         }
@@ -127,23 +132,24 @@ public class Player : MonoBehaviour
         {
             transform.eulerAngles = Vector3.zero;
         }
-        
+        return direction;
+
     }
-     //The player will face the correct direction
-    private void Mirror() 
+    //The player will face the correct direction
+    private void Mirror()
     {
         rightFace = !rightFace;
         Vector2 Size = transform.localScale;
         Size.x *= -1;
         transform.localScale = Size;
     }
-   //Let's the play jump under gravity direction circumstances
+    //Let's the play jump under gravity direction circumstances
     private void Jump()
     {
 
         if (Physics2D.gravity == new Vector2(9.81f, 0f))
         {
-            playerRB.velocity = new Vector2(-jumpPower, playerRB.velocity.y );
+            playerRB.velocity = new Vector2(-jumpPower, playerRB.velocity.y);
         }
         else if (Physics2D.gravity == new Vector2(-9.81f, 0f))
         {
@@ -153,14 +159,15 @@ public class Player : MonoBehaviour
         {
             playerRB.velocity = new Vector2(playerRB.velocity.x, -jumpPower);
         }
-        else { 
+        else
+        {
             playerRB.velocity = new Vector2(playerRB.velocity.x, jumpPower);
         }
     }
     //Detects other obstacles
     void OnCollisionEnter2D(Collision2D other)
     {
-        level.PlayerCollision(this,other);
+        level.PlayerCollision(this, other);
 
         switch (other.gameObject.tag)
         {
@@ -168,10 +175,10 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-   //Checks for trigger to change the camera position
+    //Checks for trigger to change the camera position
     void OnTriggerEnter2D(Collider2D other)
     {
-        level.PlayerCollider(this,other);
+        level.PlayerCollider(this, other);
     }
 
     //Kills the player (Will respawn player soon)
@@ -184,26 +191,26 @@ public class Player : MonoBehaviour
         playerSprite.color = Color.white;
         playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
         LoadLastCheckpoint();
-       
+
     }
-     public void LoadLastCheckpoint()
+    public void LoadLastCheckpoint()
     {
         switch (level.currentActiveCheckpoint)
         {
             case 0:
-                Rotate("Down");
+                Rotate(RotateDirection.Down);
                 Physics2D.gravity = new Vector2(0f, -9.81f);
                 currentPlayerPosition.transform.position = playerSpawnPosition[0];
                 level.segmentCamera.transform.position = level.segmentCameraPositions[0];
                 break;
             case 1:
-                Rotate("Up");
+                Rotate(RotateDirection.Up);
                 Physics2D.gravity = new Vector2(0f, 9.81f);
                 currentPlayerPosition.transform.position = playerSpawnPosition[1];
                 level.segmentCamera.transform.position = level.segmentCameraPositions[0];
                 break;
             case 2:
-                Rotate("Left");
+                Rotate(RotateDirection.Left);
                 Physics2D.gravity = new Vector2(-9.81f, 0f);
                 currentPlayerPosition.transform.position = playerSpawnPosition[2];
                 level.segmentCamera.transform.position = level.segmentCameraPositions[1];

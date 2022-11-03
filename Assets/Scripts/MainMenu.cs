@@ -20,26 +20,29 @@ public class MainMenu : MonoBehaviour
     //Opens Main Menu tab
     public void ToMainMenu()
     {
+        InactiveAllMenus();
         mainMenu.SetActive(true);
-        settingsMenu.SetActive(false);
-        creditsMenu.SetActive(false);
     }
 
     //Opens Settings tab
     public void ToSettings()
     {
-        mainMenu.SetActive(false);
+        InactiveAllMenus();
         settingsMenu.SetActive(true);
-        creditsMenu.SetActive(false);
     }
     //Opens Credits tab
     public void ToCredits()
     {
-        mainMenu.SetActive(false);
-        settingsMenu.SetActive(false);
+        InactiveAllMenus();
         creditsMenu.SetActive(true);
     }
-
+    //Sets all menus inactive by default
+    private void InactiveAllMenus()
+    {
+        mainMenu.SetActive(false);
+        settingsMenu.SetActive(false);
+        creditsMenu.SetActive(false);
+    }
     //Add resolutions
     [HideInInspector]
     public List<Vector2> resolutions = new List<Vector2>() {
