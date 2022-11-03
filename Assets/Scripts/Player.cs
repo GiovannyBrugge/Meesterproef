@@ -47,10 +47,10 @@ public class Player : MonoBehaviour
         currentPlayerPosition = GameObject.Find("Player").GetComponent<Transform>();
         //Set checkpoint1 position
         Vector3 cp1 = GameObject.Find("Checkpoint1").GetComponent<Transform>().position;
-        playerSpawnPosition[1] = new Vector3(cp1.x, cp1.y, cp1.z);
+        playerSpawnPosition[1] = new Vector3(cp1.x, cp1.y, 0f);
         //Set checkpoint2 position
         Vector3 cp2 = GameObject.Find("Checkpoint2").GetComponent<Transform>().position;
-        playerSpawnPosition[2] = new Vector3(cp2.x, cp2.y, cp2.z);
+        playerSpawnPosition[2] = new Vector3(cp2.x, cp2.y, 0f);
         //Start position
         currentPlayerPosition.transform.position = playerSpawnPosition[0];
     }
