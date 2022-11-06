@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Level : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Level : MonoBehaviour
     };
 
     public int currentActiveCheckpoint; //0 = spawn, 1 = checkpoint1, 2 = checkpoint2
+    
     private void Start()
     {
         segmentCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
@@ -90,15 +92,17 @@ public class Level : MonoBehaviour
     }
     public void SetCheckpoint(int checkpoint)
     {
-        if (checkpoint == 0)
+        if (checkpoint == 0 && currentActiveCheckpoint != 1)
         {
+            AudioManager.instance.Play("Checkpoint");
             currentActiveCheckpoint = 1;
             InactiveAllCheckpoints();
             GameObject.Find("Checkpoint1").GetComponent<SpriteRenderer>().sprite = checkpointActive;
-          
+            
         }
-        else if (checkpoint == 1)
+        else if (checkpoint == 1 && currentActiveCheckpoint != 2)
         {
+            AudioManager.instance.Play("Checkpoint");
             currentActiveCheckpoint = 2;
             InactiveAllCheckpoints();
             GameObject.Find("Checkpoint2").GetComponent<SpriteRenderer>().sprite = checkpointActive;

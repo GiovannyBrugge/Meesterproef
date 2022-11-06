@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     private bool rightFace = true;
     //Player check touching ground
     private bool isGrounded = false;
+    //Checks if the play can jump after dying
+    private bool hasJumped = false;
     //Rotation directions
     public enum RotateDirection {Up, Down, Right, Left }
     //Player's current position
@@ -77,10 +79,11 @@ public class Player : MonoBehaviour
         }
 
         //Makes the play jump with the input: spacebar and W
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded == true)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W)) && isGrounded == true && hasJumped == false)
         {
             Jump();
             animator.SetTrigger("IsLaunching");
+            AudioManager.instance.Play("PlayerJump");
         }
         if (isGrounded == true)
         {
@@ -185,9 +188,12 @@ public class Player : MonoBehaviour
     public IEnumerator Die()
     {
         Debug.Log("The player has died");
+        AudioManager.instance.Play("PlayerDying");
+        hasJumped = true;
         playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
         playerSprite.color = Color.red;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.7f);
+        hasJumped = false;
         playerSprite.color = Color.white;
         playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
         LoadLastCheckpoint();
