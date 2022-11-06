@@ -19,8 +19,8 @@ public class Level : MonoBehaviour
     public int currentActiveCheckpoint; //0 = spawn, 1 = checkpoint1, 2 = checkpoint2
     private void Start()
     {
-        //  player = GameObject.Find("Player").GetComponent<Player>();
         segmentCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
+        AudioManager.instance.Play("GameTheme1");
     }
     //Detects other obstacles
     public void PlayerCollision(Player player, Collision2D other)
