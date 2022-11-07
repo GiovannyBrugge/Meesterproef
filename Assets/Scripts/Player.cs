@@ -213,13 +213,13 @@ public class Player : MonoBehaviour
                 Rotate(RotateDirection.Up);
                 Physics2D.gravity = new Vector2(0f, 9.81f);
                 currentPlayerPosition.transform.position = playerSpawnPosition[1];
-                level.segmentCamera.transform.position = level.segmentCameraPositions[0];
+                level.segmentCamera.transform.position = level.segmentCameraPositions[3];
                 break;
             case 2:
                 Rotate(RotateDirection.Left);
                 Physics2D.gravity = new Vector2(-9.81f, 0f);
                 currentPlayerPosition.transform.position = playerSpawnPosition[2];
-                level.segmentCamera.transform.position = level.segmentCameraPositions[1];
+                level.segmentCamera.transform.position = level.segmentCameraPositions[8];
                 break;
         }
     }
