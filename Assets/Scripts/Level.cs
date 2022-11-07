@@ -16,7 +16,13 @@ public class Level : MonoBehaviour
         //Segment 3
         new Vector3(-18f,-10.0f,-10f),
         //Segment 4
-        new Vector3(-36f,-10.0f,-10f)
+        new Vector3(-36f,-10.0f,-10f),
+        //Segment 5
+        new Vector3(-36f,-31.0f,-10f),
+        //Segment 6
+        new Vector3(-36f,-21.0f,-10f),
+        //Segment 7
+        new Vector3(-18f,-21.0f,-10f)
     };
 
     public int currentActiveCheckpoint; //0 = spawn, 1 = checkpoint1, 2 = checkpoint2
@@ -69,6 +75,15 @@ public class Level : MonoBehaviour
                 break;
             case "ToSegment4":
                 segmentCamera.transform.position = segmentCameraPositions[3];
+                break;
+            case "ToSegment5":
+                segmentCamera.transform.position = segmentCameraPositions[4];
+                break;
+            case "ToSegment6":
+                segmentCamera.transform.position = segmentCameraPositions[5];
+                break;
+            case "ToSegment7":
+                segmentCamera.transform.position = segmentCameraPositions[6];
                 break;
         }
         //Check gravity zone
