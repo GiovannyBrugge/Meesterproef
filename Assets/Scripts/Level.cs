@@ -1,9 +1,8 @@
+using UnityEngine.SceneManagement;
 using UnityEngine;
-using System.Collections.Generic;
-
+using System.Collections;
 public class Level : MonoBehaviour
 {
-    //private Player player;
     public Camera segmentCamera;
     public Sprite checkpointActive;
     public Sprite checkpointUnactive;
@@ -30,7 +29,7 @@ public class Level : MonoBehaviour
     };
 
     public int currentActiveCheckpoint; //0 = spawn, 1 = checkpoint1, 2 = checkpoint2
-    
+    public bool gameWon = false;
     private void Start()
     {
         segmentCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
@@ -46,10 +45,6 @@ public class Level : MonoBehaviour
                 Debug.Log("I touched a ravine");
                 break;
             case "Spike":
-                StartCoroutine(player.Die());
-                Debug.Log("I touched a spike");
-                break;
-            case "Spike2":
                 StartCoroutine(player.Die());
                 Debug.Log("I touched a spike");
                 break;
@@ -95,6 +90,9 @@ public class Level : MonoBehaviour
             case "ToSegment9":
                 segmentCamera.transform.position = segmentCameraPositions[8];
                 break;
+            case "Victory":
+                StartCoroutine(GameWon());
+                break;
         }
         //Check gravity zone
         switch (other.gameObject.name)
@@ -124,6 +122,8 @@ public class Level : MonoBehaviour
     {
         if (checkpoint == 0 && currentActiveCheckpoint != 1)
         {
+            StopAllSoundtracks();
+            AudioManager.instance.Play("GameTheme2");
             AudioManager.instance.Play("Checkpoint");
             currentActiveCheckpoint = 1;
             InactiveAllCheckpoints();
@@ -132,17 +132,36 @@ public class Level : MonoBehaviour
         }
         else if (checkpoint == 1 && currentActiveCheckpoint != 2)
         {
+            StopAllSoundtracks();
+            AudioManager.instance.Play("GameTheme3");
             AudioManager.instance.Play("Checkpoint");
             currentActiveCheckpoint = 2;
             InactiveAllCheckpoints();
             GameObject.Find("Checkpoint2").GetComponent<SpriteRenderer>().sprite = checkpointActive;
-           
         }
+    }
+    private void StopAllSoundtracks() 
+    {
+        AudioManager.instance.Stop("GameTheme1");
+        AudioManager.instance.Stop("GameTheme2");
+        AudioManager.instance.Stop("GameTheme3");
     }
     //Sets all checkpoints inactive by default
     private void InactiveAllCheckpoints()
     {
         GameObject.Find("Checkpoint1").GetComponent<SpriteRenderer>().sprite = checkpointUnactive;
         GameObject.Find("Checkpoint2").GetComponent<SpriteRenderer>().sprite = checkpointUnactive;
+    }
+    public IEnumerator GameWon()
+    {
+        if (gameWon == false)
+        {
+            Debug.Log("Congratulations, you won the game");
+            StopAllSoundtracks();
+            AudioManager.instance.Play("Victory");
+            gameWon = true;
+            yield return new WaitForSeconds(10f);
+            SceneManager.LoadScene(0);
+        }
     }
 }

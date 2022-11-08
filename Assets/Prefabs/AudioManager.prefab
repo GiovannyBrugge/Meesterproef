@@ -54,6 +54,21 @@ MonoBehaviour:
     volume: 0.1
     loop: 1
     source: {fileID: 0}
+  - audioName: GameTheme2
+    audioFile: {fileID: 8300000, guid: 37bcd35d565fdd34c94aab776d44828f, type: 3}
+    volume: 0.1
+    loop: 1
+    source: {fileID: 0}
+  - audioName: GameTheme3
+    audioFile: {fileID: 8300000, guid: 3248f67b5eeddb64fba9912fa50d00e9, type: 3}
+    volume: 0.1
+    loop: 1
+    source: {fileID: 0}
+  - audioName: Victory
+    audioFile: {fileID: 8300000, guid: f091251420e88b1478f5afe98b58217e, type: 3}
+    volume: 0.1
+    loop: 0
+    source: {fileID: 0}
   - audioName: PlayerJump
     audioFile: {fileID: 8300000, guid: 581c843c5c1f13b448d5713d5907c45c, type: 3}
     volume: 0.2

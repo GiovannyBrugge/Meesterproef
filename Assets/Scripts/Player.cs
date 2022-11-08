@@ -1,4 +1,3 @@
-using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections;
 
@@ -197,7 +196,6 @@ public class Player : MonoBehaviour
         playerSprite.color = Color.white;
         playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
         LoadLastCheckpoint();
-
     }
     public void LoadLastCheckpoint()
     {
