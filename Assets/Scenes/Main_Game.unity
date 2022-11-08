@@ -10394,19 +10394,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segmentCamera: {fileID: 0}
   checkpointActive: {fileID: 21300000, guid: 476bca1236fe60d4a97445878ae5227e, type: 3}
-  checkpointUnactive: {fileID: 21300000, guid: b755bdf36863caa489c9acc5146e21c9, type: 3}
-  segmentCameraPositions:
-  - {x: 0, y: 0, z: -10}
-  - {x: -18, y: 0, z: -10}
-  - {x: -18, y: -10, z: -10}
-  - {x: -36, y: -10, z: -10}
-  - {x: -36, y: -31, z: -10}
-  - {x: -36, y: -21, z: -10}
-  - {x: -18, y: -21, z: -10}
-  - {x: 0, y: -21, z: -10}
-  - {x: 0, y: -11, z: -10}
+  checkpointInactive: {fileID: 21300000, guid: b755bdf36863caa489c9acc5146e21c9, type: 3}
   currentActiveCheckpoint: 0
-  gameWon: 0
 --- !u!1 &999585610
 GameObject:
   m_ObjectHideFlags: 0

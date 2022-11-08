@@ -4,9 +4,12 @@ using System.Collections;
 public class Level : MonoBehaviour
 {
     public Camera segmentCamera;
+    //Checkpoint active sprite
     public Sprite checkpointActive;
-    public Sprite checkpointUnactive;
-    public Vector3[] segmentCameraPositions =
+    //Checkpoint inactive sprite
+    public Sprite checkpointInactive;
+    //List of segment camera positions
+    public readonly Vector3[] segmentCameraPositions =
     {
         //Segment 1
         new Vector3(0f,0f,-10f),
@@ -29,7 +32,7 @@ public class Level : MonoBehaviour
     };
 
     public int currentActiveCheckpoint; //0 = spawn, 1 = checkpoint1, 2 = checkpoint2
-    public bool gameWon = false;
+    private bool gameWon = false;
     private void Start()
     {
         segmentCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
@@ -120,6 +123,7 @@ public class Level : MonoBehaviour
     }
     public void SetCheckpoint(int checkpoint)
     {
+        //When first checkpoint is activated (1 time use, unless other checkpoint got activated)
         if (checkpoint == 0 && currentActiveCheckpoint != 1)
         {
             StopAllSoundtracks();
@@ -130,6 +134,7 @@ public class Level : MonoBehaviour
             GameObject.Find("Checkpoint1").GetComponent<SpriteRenderer>().sprite = checkpointActive;
             
         }
+        //When second checkpoint is activated (1 time use, unless other checkpoint got activated)
         else if (checkpoint == 1 && currentActiveCheckpoint != 2)
         {
             StopAllSoundtracks();
@@ -140,6 +145,7 @@ public class Level : MonoBehaviour
             GameObject.Find("Checkpoint2").GetComponent<SpriteRenderer>().sprite = checkpointActive;
         }
     }
+    //Stops all game themes
     private void StopAllSoundtracks() 
     {
         AudioManager.instance.Stop("GameTheme1");
@@ -149,19 +155,23 @@ public class Level : MonoBehaviour
     //Sets all checkpoints inactive by default
     private void InactiveAllCheckpoints()
     {
-        GameObject.Find("Checkpoint1").GetComponent<SpriteRenderer>().sprite = checkpointUnactive;
-        GameObject.Find("Checkpoint2").GetComponent<SpriteRenderer>().sprite = checkpointUnactive;
+        GameObject.Find("Checkpoint1").GetComponent<SpriteRenderer>().sprite = checkpointInactive;
+        GameObject.Find("Checkpoint2").GetComponent<SpriteRenderer>().sprite = checkpointInactive;
     }
+    //When you finish the last segment
     public IEnumerator GameWon()
     {
-        if (gameWon == false)
+        switch (gameWon)
         {
-            Debug.Log("Congratulations, you won the game");
-            StopAllSoundtracks();
-            AudioManager.instance.Play("Victory");
-            gameWon = true;
-            yield return new WaitForSeconds(10f);
-            SceneManager.LoadScene(0);
+            case false:
+                Debug.Log("Congratulations, you won the game");
+                StopAllSoundtracks();
+                AudioManager.instance.Play("Victory");
+                gameWon = true;
+                yield return new WaitForSeconds(10f);
+                SceneManager.LoadScene(0);
+                gameWon = false;
+                break;
         }
     }
 }
