@@ -751,7 +751,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Developer:\tGiovanny Brugge\t\t\n\nArtist:\t\t\tJadzia Boonstra\t\t\n\nTesters:\t\tDani\xEBl
-    Hoogendoorn\t\t\tShannon Wijkstra\n\t\t\t\t\tRoy Westerbeek\t\t\t\tFilip\n\t\t\t"
+    Hoogendoorn\t\t\tShannon Wijkstra\n\t\t\t\t\tRoy Westerbeek\t\t\t\t\tFilip\n\t\t\t"
 --- !u!222 &589056005
 CanvasRenderer:
   m_ObjectHideFlags: 0
