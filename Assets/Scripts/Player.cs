@@ -211,6 +211,8 @@ public class Player : MonoBehaviour
                 Physics2D.gravity = new Vector2(0f, -9.81f);
                 currentPlayerPosition.transform.position = playerSpawnPosition[0];
                 level.segmentCamera.transform.position = level.segmentCameraPositions[0];
+                level.TurnOffTutorial();
+                level.tutorialCanvas.transform.GetChild(0).gameObject.SetActive(true);
                 break;
             case 1:
                 Rotate(RotateDirection.Up);

@@ -33,6 +33,9 @@ public class Level : MonoBehaviour
         //Segment 9
         new Vector3(0f,-11f,-10f)
     };
+    //Worldspace UI
+    public GameObject tutorialCanvas;
+    //UI Canvas
     public static GameObject Canvas;
     public int currentActiveCheckpoint; //0 = spawn, 1 = checkpoint1, 2 = checkpoint2
     //Checks if the game is beaten
@@ -51,6 +54,7 @@ public class Level : MonoBehaviour
         deathCounter = 0f;
         deathCounterText = GameObject.Find("DeathCounterTxt").GetComponent<Text>();
         segmentCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
+        tutorialCanvas = GameObject.Find("Tutorial");
         ResetPlayer();
         AudioManager.instance.Play("GameTheme1");
     }
@@ -74,14 +78,31 @@ public class Level : MonoBehaviour
     {
         switch (other.gameObject.name)
         {
+            //Checkpoints
             case "Checkpoint1":
-                Debug.Log("Touching checkpoint");
                 SetCheckpoint(0);
                 break;
             case "Checkpoint2":
-                Debug.Log("Touching checkpoint");
                 SetCheckpoint(1);
                 break;
+            //Tutorial UI
+            case "TutorialJumpAppear":
+                TurnOffTutorial();
+                tutorialCanvas.transform.GetChild(1).gameObject.SetActive(true);
+                break;
+            case "TutorialGravityAppear":
+                TurnOffTutorial();
+                tutorialCanvas.transform.GetChild(2).gameObject.SetActive(true);
+                break;
+            case "TutorialTrapAppear":
+                TurnOffTutorial();
+                tutorialCanvas.transform.GetChild(3).gameObject.SetActive(true);
+                break;
+            case "TutorialGoodLuck":
+                TurnOffTutorial();
+                tutorialCanvas.transform.GetChild(4).gameObject.SetActive(true);
+                break;
+            //Segment change
             case "ToSegment1":
                 segmentCamera.transform.position = segmentCameraPositions[0];
                 break;
@@ -109,6 +130,7 @@ public class Level : MonoBehaviour
             case "ToSegment9":
                 segmentCamera.transform.position = segmentCameraPositions[8];
                 break;
+            //Victory transition
             case "Victory":
                 StartCoroutine(GameWon());
                 break;
@@ -194,6 +216,13 @@ public class Level : MonoBehaviour
         GameObject.Find("Checkpoint1").GetComponent<SpriteRenderer>().sprite = checkpointInactive;
         GameObject.Find("Checkpoint2").GetComponent<SpriteRenderer>().sprite = checkpointInactive;
     }
+    public void TurnOffTutorial() {
+        tutorialCanvas.transform.GetChild(0).gameObject.SetActive(false);
+        tutorialCanvas.transform.GetChild(1).gameObject.SetActive(false);
+        tutorialCanvas.transform.GetChild(2).gameObject.SetActive(false);
+        tutorialCanvas.transform.GetChild(3).gameObject.SetActive(false);
+        tutorialCanvas.transform.GetChild(4).gameObject.SetActive(false);
+    }
     //When you finish the last segment
     public IEnumerator GameWon()
     {
@@ -230,6 +259,8 @@ public class Level : MonoBehaviour
     //Resets all player info
     private void ResetPlayer()
     {
+        TurnOffTutorial();
+        tutorialCanvas.transform.GetChild(0).gameObject.SetActive(true);
         segmentCamera.transform.position = segmentCameraPositions[0];
         Physics2D.gravity = new Vector2(0f, -9.81f);
         AudioListener.volume = 1;
