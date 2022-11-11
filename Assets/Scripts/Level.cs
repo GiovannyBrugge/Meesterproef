@@ -38,13 +38,17 @@ public class Level : MonoBehaviour
     //Checks if the game is beaten
     private bool gameWon = false;
     //Counts the amount of deaths
-    public float DeathCounter;
+    public float deathCounter;
     //The text for the death counter
     public Text deathCounterText;
-
+    //Victory screen
+    public GameObject victoryScreen;
+    //Death result at victory screen
+    public Text deathCountResults;
+    
     private void Start()
     {
-        DeathCounter = 0f;
+        deathCounter = 0f;
         deathCounterText = GameObject.Find("DeathCounterTxt").GetComponent<Text>();
         segmentCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
         ResetPlayer();
@@ -196,11 +200,28 @@ public class Level : MonoBehaviour
         switch (gameWon)
         {
             case false:
-                Debug.Log("Congratulations, you won the game");
+                victoryScreen.SetActive(true);
+                if (deathCounter == 0f)
+                {
+                    deathCountResults.text = "Amazing, you have some dedication!"+ "\n" + "\n" + "You didn't die at all, congrats!";
+                }
+                else if (deathCounter == 1f)
+                {
+                    deathCountResults.text = "You were so close to not die at all!" + "\n" + "\n" + "You only died once, so you are still talented!";
+                }
+                else if (deathCounter > 1f && deathCounter < 100f)
+                {
+                    deathCountResults.text = "Seems like you are not that bad at all!" + "\n" + "\n" + "You only died: " + deathCounter + " times!";
+                }
+                else if (deathCounter >= 100f)
+                {
+                    deathCountResults.text = "I hope you didn't break your device..." + "\n" + "\n" + "You have died: " + deathCounter + " times, ouch!";
+                }
                 StopAllSoundtracks();
                 AudioManager.instance.Play("Victory");
                 gameWon = true;
                 yield return new WaitForSeconds(10f);
+                victoryScreen.SetActive(false);
                 SceneManager.LoadScene(0);
                 gameWon = false;
                 break;

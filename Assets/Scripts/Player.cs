@@ -193,8 +193,8 @@ public class Player : MonoBehaviour
         hasJumped = true;
         playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
         playerSprite.color = Color.red;
-        level.DeathCounter += 1f;
-        level.deathCounterText.text = "Deaths: " + level.DeathCounter;
+        level.deathCounter += 1f;
+        level.deathCounterText.text = "Deaths: " + level.deathCounter;
         yield return new WaitForSeconds(0.7f);
         //After dying
         hasJumped = false;
