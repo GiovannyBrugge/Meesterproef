@@ -7466,7 +7466,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Watch out for red ravines or spikes!
+  m_Text: Watch out for spikes or red ravines!
 --- !u!222 &269561187
 CanvasRenderer:
   m_ObjectHideFlags: 0
