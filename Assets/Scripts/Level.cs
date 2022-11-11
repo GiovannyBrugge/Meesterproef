@@ -216,6 +216,7 @@ public class Level : MonoBehaviour
         GameObject.Find("Checkpoint1").GetComponent<SpriteRenderer>().sprite = checkpointInactive;
         GameObject.Find("Checkpoint2").GetComponent<SpriteRenderer>().sprite = checkpointInactive;
     }
+    //Turns off all tutorial text
     public void TurnOffTutorial() {
         tutorialCanvas.transform.GetChild(0).gameObject.SetActive(false);
         tutorialCanvas.transform.GetChild(1).gameObject.SetActive(false);
