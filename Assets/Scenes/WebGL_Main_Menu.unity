@@ -1453,7 +1453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 8013134948565240704}
   settingsMenu: {fileID: 157579408}
-  creditsMenu: {fileID: 0}
+  creditsMenu: {fileID: 1002546965}
   resolutions:
   - {x: 3840, y: 2160}
   - {x: 3440, y: 1440}
