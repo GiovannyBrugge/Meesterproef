@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
         new Vector3(0f,0f,0f)
     };
 
+    //Animator of the player
     public Animator animator;
 
     private void Start()
@@ -186,12 +187,16 @@ public class Player : MonoBehaviour
     //Kills the player (Will respawn player soon)
     public IEnumerator Die()
     {
+        //During dying
         Debug.Log("The player has died");
         AudioManager.instance.Play("PlayerDying");
         hasJumped = true;
         playerRB.constraints = RigidbodyConstraints2D.FreezeAll;
         playerSprite.color = Color.red;
+        level.DeathCounter += 1f;
+        level.deathCounterText.text = "Deaths: " + level.DeathCounter;
         yield return new WaitForSeconds(0.7f);
+        //After dying
         hasJumped = false;
         playerSprite.color = Color.white;
         playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;

@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
+    //public Dictionary<string, Sound> soundDct;
     public static AudioManager instance;
 
     private void Awake()
@@ -33,6 +35,7 @@ public class AudioManager : MonoBehaviour
     {
         Sound s = Array.Find(sounds, sound => sound.audioName == name);
         s.source.Play();
+        //soundsdic[name].Play();
     }
     //Stops audio completely
     public void Stop(string name)

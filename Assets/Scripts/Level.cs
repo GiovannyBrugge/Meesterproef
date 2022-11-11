@@ -1,6 +1,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 public class Level : MonoBehaviour
 {
     public Camera segmentCamera;
@@ -34,10 +35,17 @@ public class Level : MonoBehaviour
     };
     public static GameObject Canvas;
     public int currentActiveCheckpoint; //0 = spawn, 1 = checkpoint1, 2 = checkpoint2
+    //Checks if the game is beaten
     private bool gameWon = false;
+    //Counts the amount of deaths
+    public float DeathCounter;
+    //The text for the death counter
+    public Text deathCounterText;
 
     private void Start()
     {
+        DeathCounter = 0f;
+        deathCounterText = GameObject.Find("DeathCounterTxt").GetComponent<Text>();
         segmentCamera = GameObject.Find("MainCamera").GetComponent<Camera>();
         ResetPlayer();
         AudioManager.instance.Play("GameTheme1");
