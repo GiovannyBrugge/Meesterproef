@@ -14,7 +14,10 @@ public class Player : MonoBehaviour
     const float checkCollisionRadius = 0.2f;
     //Player movement
     private readonly float playerMovementSpeed = 2.5f;
+    //Jump height
     private readonly float jumpPower = 4.5f;
+    //Max fall speed of the player
+    private readonly float maxFallSpeed = 7.5f;
     private float horizontalInput;
     //Player check facing direction
     private bool rightFace = true;
@@ -39,7 +42,8 @@ public class Player : MonoBehaviour
 
     //Animator of the player
     public Animator animator;
-
+   
+    
     private void Start()
     {
         playerSprite = GetComponent<SpriteRenderer>();
@@ -101,6 +105,11 @@ public class Player : MonoBehaviour
         {
             Mirror();
         }
+        //Sets a max fall value
+        if(playerRB.velocity.magnitude > maxFallSpeed)
+        {
+            playerRB.velocity = Vector2.ClampMagnitude(playerRB.velocity,maxFallSpeed);
+        }
     }
     //Checks if the invisible circle underneath the player is touching a layer named "Ground"
     private void GroundCheck()
@@ -149,7 +158,6 @@ public class Player : MonoBehaviour
     //Let's the play jump under gravity direction circumstances
     private void Jump()
     {
-
         if (Physics2D.gravity == new Vector2(9.81f, 0f))
         {
             playerRB.velocity = new Vector2(-jumpPower, playerRB.velocity.y);
