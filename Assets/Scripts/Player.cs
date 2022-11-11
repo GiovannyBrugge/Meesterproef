@@ -214,6 +214,7 @@ public class Player : MonoBehaviour
     {
         switch (level.currentActiveCheckpoint)
         {
+            //Spawn
             case 0:
                 Rotate(RotateDirection.Down);
                 Physics2D.gravity = new Vector2(0f, -9.81f);
@@ -222,12 +223,14 @@ public class Player : MonoBehaviour
                 level.TurnOffTutorial();
                 level.tutorialCanvas.transform.GetChild(0).gameObject.SetActive(true);
                 break;
+            //Checkpoint 1
             case 1:
                 Rotate(RotateDirection.Up);
                 Physics2D.gravity = new Vector2(0f, 9.81f);
                 currentPlayerPosition.transform.position = playerSpawnPosition[1];
                 level.segmentCamera.transform.position = level.segmentCameraPositions[3];
                 break;
+            //Checkpoint 2
             case 2:
                 Rotate(RotateDirection.Down);
                 Physics2D.gravity = new Vector2(0f, -9.81f);
